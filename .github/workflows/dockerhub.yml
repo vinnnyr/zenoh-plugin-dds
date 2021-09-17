@@ -1,10 +1,9 @@
-name: dockerhub
+name: ci
 
 on:
   push:
     branches:
       - 'master'
-      - 'discovery-routing'
       - 'discovery-routing-1'
 
 jobs:
@@ -14,8 +13,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -26,8 +23,8 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
-          username: ${{ secrets.DOCKER_COM_USERNAME }}
-          password: ${{ secrets.DOCKER_COM_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
         uses: docker/build-push-action@v2
@@ -35,4 +32,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: eclipse/zenoh-bridge-dds:master
+          tags: vinnnyr/zenoh-plugin-dds:latest
