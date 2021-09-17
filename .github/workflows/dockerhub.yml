@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'master'
+      - 'discovery-routing'
+      - 'discovery-routing-1'
 
 jobs:
   docker:
